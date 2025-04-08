@@ -123,7 +123,7 @@ class OnvifClient:
         groupData = groupby(sortedResult, key=lambda x: x['source'])
         return [{'source': key, 'data': [item for item in group]} for key, group in groupData]
 
-    def snip_image(self, token=None):
+    def snap_image(self, token=None):
         """
         截图，如果在浏览器上访问，可在img的src填入[data:image/jpeg;base64,%s]，%s处填写return值
         参考文档：https://www.onvif.org/onvif/ver10/media/wsdl/media.wsdl#op.GetSnapshotUri

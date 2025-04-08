@@ -86,6 +86,44 @@ async def get_deviceInfo(host: str, port: int = 80, usr: str = 'admin', pwd: str
     client = OnvifClient(host, port, usr, pwd, needSnapImg=False)
     return json.dumps(client.get_deviceInfo())
 
+@app.tool()
+async def snap_image(host: str, port: int = 80, usr: str = 'admin', pwd: str = 'admin'):
+    """
+    Snap an image from the camera
+    
+    Args:
+        host: Camera IP address
+        port: Camera port
+        usr: Camera username
+        pwd: Camera password
+    Returns:
+        image base64 string
+    """
+    client = OnvifClient(host, port, usr, pwd, needSnapImg=False)
+    bytearray = client.snap_image()
+    # bytes转str
+    return bytearray.decode('utf-8')
+
+@app.tool()
+async def focus_move(host: str, port: int = 80, usr: str = 'admin', pwd: str = 'admin', speed: float = 1):
+    """
+    focus_move from the camera
+    
+    Args:
+        host: Camera IP address
+        port: Camera port
+        usr: Camera username
+        pwd: Camera password
+        speed: float 正数：聚焦+，拉近；负数：聚焦-，拉远；None：停止聚焦
+    Returns:
+        deviceInfo
+    """
+    client = OnvifClient(host, port, usr, pwd, needSnapImg=False)
+    return client.focus_move()
+
+
+
+
 def main():
     print("Hello from onvif-mcp!")
 
