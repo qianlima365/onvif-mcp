@@ -7,5 +7,8 @@
 - **配置管理**：远程修改设备参数（分辨率、帧率、编码格式等）
 
 项目采用Python实现ONVIF WS-Discovery与SOAP协议交互，提供CLI工具快速启动服务：
-```bash
+```shell
 mcp dev main.py  # 启动设备探测与控制服务
+或者
+uv run main.py
+```
