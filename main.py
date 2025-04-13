@@ -51,7 +51,13 @@ async def handle_ptz_control(host: str, port: int = 80, usr: str = 'admin', pwd:
         status=1,
         speed=speed
     )
-    time.sleep(10)
+    time.sleep(3)
+    ptzChangeByClient(
+        client=client,
+        codeStr=direction,
+        status=0,
+        speed=speed
+    )
     return {'status': 'movement_started'}
 
 @app.tool()
