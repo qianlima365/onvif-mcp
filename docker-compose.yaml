@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  onvif-mcp-sse:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    image: onvif-mcp-sse:latest
+    container_name: onvif-mcp-sse
+    volumes:
+      - .:/app
+    ports:
+      - "8020:8020"
+    command: ["uv", "run", "main.py", "--host", "0.0.0.0", "--port", "8020"]
