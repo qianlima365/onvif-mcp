@@ -2,13 +2,12 @@ import time
 import json
 from onvif_device_manage import checkPwdAndGetCam, ptzChangeByClient, OnvifClient, ws_discovery
 
-import httpx
 from mcp.server import FastMCP
 
 # # 初始化 FastMCP 服务器
-app = FastMCP('onvif-mcp')
+mcp = FastMCP('onvif-mcp')
 
-@app.tool()
+@mcp.tool()
 async def handle_discover_devices():
     """
     Discover ONVIF devices on the network
@@ -29,7 +28,7 @@ async def handle_discover_devices():
         return {'status': 'error', 'message': str(e)}
     
 
-@app.tool()
+@mcp.tool()
 async def handle_ptz_control(host: str, port: int = 80, usr: str = 'admin', pwd: str = 'admin', direction: str = 'Up', speed: float = 50):
     """
     Control camera PTZ movements
@@ -60,7 +59,7 @@ async def handle_ptz_control(host: str, port: int = 80, usr: str = 'admin', pwd:
     )
     return {'status': 'movement_started'}
 
-@app.tool()
+@mcp.tool()
 async def get_rtsp(host: str, port: int = 80, usr: str = 'admin', pwd: str = 'admin'):
     """
     Get camera RTSP address
@@ -76,7 +75,7 @@ async def get_rtsp(host: str, port: int = 80, usr: str = 'admin', pwd: str = 'ad
     client = OnvifClient(host, port, usr, pwd, needSnapImg=False)
     return json.dumps(client.get_rtsp())
 
-@app.tool()
+@mcp.tool()
 async def get_deviceInfo(host: str, port: int = 80, usr: str = 'admin', pwd: str = 'admin'):
     """
     Get camera DeviceInfo
@@ -92,7 +91,7 @@ async def get_deviceInfo(host: str, port: int = 80, usr: str = 'admin', pwd: str
     client = OnvifClient(host, port, usr, pwd, needSnapImg=False)
     return json.dumps(client.get_deviceInfo())
 
-@app.tool()
+@mcp.tool()
 async def snap_image(host: str, port: int = 80, usr: str = 'admin', pwd: str = 'admin'):
     """
     Snap an image from the camera
@@ -110,7 +109,7 @@ async def snap_image(host: str, port: int = 80, usr: str = 'admin', pwd: str = '
     # bytes转str
     return bytearray.decode('utf-8')
 
-@app.tool()
+@mcp.tool()
 async def focus_move(host: str, port: int = 80, usr: str = 'admin', pwd: str = 'admin', speed: float = 1):
     """
     focus_move from the camera
@@ -127,5 +126,24 @@ async def focus_move(host: str, port: int = 80, usr: str = 'admin', pwd: str = '
     client = OnvifClient(host, port, usr, pwd, needSnapImg=False)
     return client.focus_move()
 
+# 获取摄像头列表
+@mcp.tool()
+async def get_camera_list():
+    """
+    Get camera list
+    
+    Args:
+        no args
+    Returns:
+        camera list
+    """
+
+    return [{
+        'host': '10.17.20.110',
+        'port': 80,
+        'usr': 'admin',
+        'pwd': 'qwer1234'
+    }]
+
 if __name__ == "__main__":
-    app.run(transport='stdio')
+    mcp.run(transport='stdio')
