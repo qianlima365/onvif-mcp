@@ -2,12 +2,11 @@ import time
 import json
 from onvif_device_manage import checkPwdAndGetCam, ptzChangeByClient, OnvifClient, ws_discovery
 
-from mcp.server import FastMCP
+from mcp.server import FastMCP, Server
 from starlette.applications import Starlette
 from mcp.server.sse import SseServerTransport
 from starlette.requests import Request
 from starlette.routing import Mount, Route
-from mcp.server import Server
 import uvicorn
 
 # # 初始化 FastMCP 服务器
@@ -145,11 +144,25 @@ async def get_camera_list():
     """
 
     return [{
+        'name': '大厅门口摄像头',
         'host': '10.17.20.110',
         'port': 80,
         'usr': 'admin',
         'pwd': 'qwer1234'
-    }]
+    },{
+        'name': '办公区摄像头',
+        'host': '10.17.20.110',
+        'port': 80,
+        'usr': 'admin',
+        'pwd': 'qwer1234'
+    },{
+        'name': '楼梯口摄像头',
+        'host': '10.17.20.110',
+        'port': 80,
+        'usr': 'admin',
+        'pwd': 'qwer1234'
+    }
+            ]
 
 
 def create_starlette_app(mcp_server: Server, *, debug: bool = False) -> Starlette:
