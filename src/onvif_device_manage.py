@@ -234,6 +234,7 @@ def ptzChangeByClient(client, codeStr, status, speed=50.0):
                 raise Exception("当前设备不支持PTZ控制")
             else:
                 return
+            
         if status == 0:
             if 'Zoom' not in codeStr:
                 if client.PanTiltSpeedMax is None:

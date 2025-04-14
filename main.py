@@ -1,6 +1,6 @@
 import time
 import json
-from onvif_device_manage import checkPwdAndGetCam, ptzChangeByClient, OnvifClient, ws_discovery
+from src.onvif_device_manage import checkPwdAndGetCam, ptzChangeByClient, OnvifClient, ws_discovery
 
 from mcp.server import FastMCP, Server
 from starlette.applications import Starlette
