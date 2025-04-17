@@ -78,7 +78,7 @@ async def get_rtsp(host: str, port: int = 80, usr: str = 'admin', pwd: str = 'ad
         rtsp_url
     """
     client = OnvifClient(host, port, usr, pwd, needSnapImg=False)
-    return json.dumps(client.get_rtsp())
+    return client.get_rtsp()
 
 @mcp.tool()
 async def get_deviceInfo(host: str, port: int = 80, usr: str = 'admin', pwd: str = 'admin'):
@@ -94,7 +94,7 @@ async def get_deviceInfo(host: str, port: int = 80, usr: str = 'admin', pwd: str
         deviceInfo
     """
     client = OnvifClient(host, port, usr, pwd, needSnapImg=False)
-    return json.dumps(client.get_deviceInfo())
+    return client.get_deviceInfo()
 
 @mcp.tool()
 async def snap_image(host: str, port: int = 80, usr: str = 'admin', pwd: str = 'admin'):
@@ -143,26 +143,30 @@ async def get_camera_list():
         camera list
     """
 
-    return [{
-        'name': '大厅门口摄像头',
-        'host': '10.17.20.110',
-        'port': 80,
-        'usr': 'admin',
-        'pwd': 'qwer1234'
-    },{
-        'name': '办公区摄像头',
-        'host': '10.17.20.110',
-        'port': 80,
-        'usr': 'admin',
-        'pwd': 'qwer1234'
-    },{
-        'name': '楼梯口摄像头',
-        'host': '10.17.20.110',
-        'port': 80,
-        'usr': 'admin',
-        'pwd': 'qwer1234'
-    }
-            ]
+    return [
+        {
+                'name': '大厅门口摄像头',
+                'host': '10.17.20.110',
+                'port': 80,
+                'usr': 'admin',
+                'pwd': 'qwer1234',
+                "http_flv": "http://10.156.195.44:8080/live/test.live.flv",
+                },{
+                    'name': '办公区摄像头',
+                    'host': '10.17.20.110',
+                    'port': 80,
+                    'usr': 'admin',
+                    'pwd': 'qwer1234',
+                    "http_flv": "http://10.156.195.44:8080/live/test.live.flv",
+                },{
+                    'name': '楼梯口摄像头',
+                    'host': '10.17.20.110',
+                    'port': 80,
+                    'usr': 'admin',
+                    'pwd': 'qwer1234',
+                    "http_flv": "http://10.156.195.44:8080/live/test.live.flv",
+                }
+        ]
 
 
 def create_starlette_app(mcp_server: Server, *, debug: bool = False) -> Starlette:
