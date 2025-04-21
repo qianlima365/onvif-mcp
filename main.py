@@ -109,10 +109,8 @@ async def snap_image(host: str, port: int = 80, usr: str = 'admin', pwd: str = '
     Returns:
         image base64 string
     """
-    client = OnvifClient(host, port, usr, pwd, needSnapImg=False)
-    bytearray = client.snap_image()
-    # bytes转str
-    return bytearray.decode('utf-8')
+    client = OnvifClient(host, port, usr, pwd, needSnapImg=True)
+    return client.snap_image()
 
 @mcp.tool()
 async def focus_move(host: str, port: int = 80, usr: str = 'admin', pwd: str = 'admin', speed: float = 1):
@@ -151,6 +149,7 @@ async def get_camera_list():
                 'usr': 'admin',
                 'pwd': 'qwer1234',
                 "http_flv": "http://10.156.195.44:8080/live/test.live.flv",
+                "http_hls": "http://10.156.195.44:8080/live/test/hls.m3u8"
                 },{
                     'name': '办公区摄像头',
                     'host': '10.17.20.110',
@@ -158,6 +157,7 @@ async def get_camera_list():
                     'usr': 'admin',
                     'pwd': 'qwer1234',
                     "http_flv": "http://10.156.195.44:8080/live/test.live.flv",
+                    "http_hls": "http://10.156.195.44:8080/live/test/hls.m3u8"
                 },{
                     'name': '楼梯口摄像头',
                     'host': '10.17.20.110',
@@ -165,9 +165,31 @@ async def get_camera_list():
                     'usr': 'admin',
                     'pwd': 'qwer1234',
                     "http_flv": "http://10.156.195.44:8080/live/test.live.flv",
+                    "http_hls": "http://10.156.195.44:8080/live/test/hls.m3u8"
                 }
         ]
 
+# 获取摄像头直播流播放地址
+@mcp.tool()
+async def get_camera_live(name: str):
+    """
+    Get camera live stream url
+    
+    Args:
+        name: camera name
+    Returns:
+        camera live stream url
+    """
+
+    return  {
+                'name': name,
+                'host': '10.17.20.110',
+                'port': 80,
+                'usr': 'admin',
+                'pwd': 'qwer1234',
+                "http_flv": "http://10.156.195.44:8080/live/test.live.flv",
+                "http_hls": "http://10.156.195.44:8080/live/test/hls.m3u8"
+            }
 
 def create_starlette_app(mcp_server: Server, *, debug: bool = False) -> Starlette:
     """Create a Starlette application that can server the provied mcp server with SSE."""

@@ -10,5 +10,5 @@
 ```shell
 mcp dev main.py  # 启动设备探测与控制服务
 或者
-uv run main.py
+python run main.py --host 0.0.0.0 --port 8020
 ```
