@@ -8,6 +8,7 @@ dependencies = [
     "onvif-zeep",
     "WSDiscovery",
     "requests",
+    "minio",
     "httpx>=0.28.1",
     "mcp[cli]>=1.6.0",
     "openai>=1.70.0",

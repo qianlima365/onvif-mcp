@@ -34,4 +34,12 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    
+    client = OnvifClient('10.17.20.110', 80, 'admin', 'qwer1234', needSnapImg=True)
+    image_base64 = client.snap_image()
+    # 上传到minio
+    from utils.minio import upload_to_minio
+    # base64转二进制
+    import base64
+    image_bytes = base64.b64decode(image_base64)
+    upload_to_minio(image_bytes)

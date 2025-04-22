@@ -113,6 +113,31 @@ async def snap_image(host: str, port: int = 80, usr: str = 'admin', pwd: str = '
     return client.snap_image()
 
 @mcp.tool()
+async def snap_image_to_minio(host: str, port: int = 80, usr: str = 'admin', pwd: str = 'admin'):
+    """
+    Snap an image from the camera, and upload to minio
+    
+    Args:
+        host: Camera IP address
+        port: Camera port
+        usr: Camera username
+        pwd: Camera password
+    Returns:
+        image url by minio
+    """
+    client = OnvifClient(host, port, usr, pwd, needSnapImg=True)
+    image_base64 = client.snap_image()
+
+    # 上传到minio
+    # minio_key = upload_to_minio(image)
+    from src.utils.minio import upload_to_minio
+    # 将base64编码的字符串转换为二进制数据
+    import base64
+    image_bytes = base64.b64decode(image_base64)
+    return upload_to_minio(image_bytes)
+
+
+@mcp.tool()
 async def focus_move(host: str, port: int = 80, usr: str = 'admin', pwd: str = 'admin', speed: float = 1):
     """
     focus_move from the camera
@@ -149,7 +174,7 @@ async def get_camera_list():
                 'usr': 'admin',
                 'pwd': 'qwer1234',
                 "http_flv": "http://10.156.195.44:8080/live/test.live.flv",
-                "http_hls": "http://10.156.195.44:8080/live/test/hls.m3u8"
+                # "http_hls": "http://10.156.195.44:8080/live/test/hls.m3u8"
                 },{
                     'name': '办公区摄像头',
                     'host': '10.17.20.110',
@@ -157,7 +182,7 @@ async def get_camera_list():
                     'usr': 'admin',
                     'pwd': 'qwer1234',
                     "http_flv": "http://10.156.195.44:8080/live/test.live.flv",
-                    "http_hls": "http://10.156.195.44:8080/live/test/hls.m3u8"
+                    # "http_hls": "http://10.156.195.44:8080/live/test/hls.m3u8"
                 },{
                     'name': '楼梯口摄像头',
                     'host': '10.17.20.110',
@@ -165,7 +190,7 @@ async def get_camera_list():
                     'usr': 'admin',
                     'pwd': 'qwer1234',
                     "http_flv": "http://10.156.195.44:8080/live/test.live.flv",
-                    "http_hls": "http://10.156.195.44:8080/live/test/hls.m3u8"
+                    # "http_hls": "http://10.156.195.44:8080/live/test/hls.m3u8"
                 }
         ]
 
@@ -188,7 +213,7 @@ async def get_camera_live(name: str):
                 'usr': 'admin',
                 'pwd': 'qwer1234',
                 "http_flv": "http://10.156.195.44:8080/live/test.live.flv",
-                "http_hls": "http://10.156.195.44:8080/live/test/hls.m3u8"
+                # "http_hls": "http://10.156.195.44:8080/live/test/hls.m3u8"
             }
 
 def create_starlette_app(mcp_server: Server, *, debug: bool = False) -> Starlette:
