@@ -96,21 +96,21 @@ async def get_deviceInfo(host: str, port: int = 80, usr: str = 'admin', pwd: str
     client = OnvifClient(host, port, usr, pwd, needSnapImg=False)
     return client.get_deviceInfo()
 
-@mcp.tool()
-async def snap_image(host: str, port: int = 80, usr: str = 'admin', pwd: str = 'admin'):
-    """
-    Snap an image from the camera
+# @mcp.tool()
+# async def snap_image(host: str, port: int = 80, usr: str = 'admin', pwd: str = 'admin'):
+#     """
+#     Snap an image from the camera
     
-    Args:
-        host: Camera IP address
-        port: Camera port
-        usr: Camera username
-        pwd: Camera password
-    Returns:
-        image base64 string
-    """
-    client = OnvifClient(host, port, usr, pwd, needSnapImg=True)
-    return client.snap_image()
+#     Args:
+#         host: Camera IP address
+#         port: Camera port
+#         usr: Camera username
+#         pwd: Camera password
+#     Returns:
+#         image base64 string
+#     """
+#     client = OnvifClient(host, port, usr, pwd, needSnapImg=True)
+#     return client.snap_image()
 
 @mcp.tool()
 async def snap_image_to_minio(host: str, port: int = 80, usr: str = 'admin', pwd: str = 'admin'):
@@ -152,7 +152,7 @@ async def focus_move(host: str, port: int = 80, usr: str = 'admin', pwd: str = '
         deviceInfo
     """
     client = OnvifClient(host, port, usr, pwd, needSnapImg=False)
-    return client.focus_move()
+    return client.focus_move(speed=speed)
 
 # 获取摄像头列表
 @mcp.tool()
@@ -240,20 +240,20 @@ def create_starlette_app(mcp_server: Server, *, debug: bool = False) -> Starlett
         ],
     )
 
-# if __name__ == "__main__":
-#     mcp.run(transport='stdio')
-
 if __name__ == "__main__":
-    mcp_server = mcp._mcp_server   
+    mcp.run(transport='stdio')
 
-    import argparse
+# if __name__ == "__main__":
+#     mcp_server = mcp._mcp_server   
+
+#     import argparse
     
-    parser = argparse.ArgumentParser(description='Run MCP SSE-based server')
-    parser.add_argument('--host', default='0.0.0.0', help='Host to bind to')
-    parser.add_argument('--port', type=int, default=8020, help='Port to listen on')
-    args = parser.parse_args()
+#     parser = argparse.ArgumentParser(description='Run MCP SSE-based server')
+#     parser.add_argument('--host', default='0.0.0.0', help='Host to bind to')
+#     parser.add_argument('--port', type=int, default=8020, help='Port to listen on')
+#     args = parser.parse_args()
 
-    # Bind SSE request handling to MCP server
-    starlette_app = create_starlette_app(mcp_server, debug=True)
+#     # Bind SSE request handling to MCP server
+#     starlette_app = create_starlette_app(mcp_server, debug=True)
 
-    uvicorn.run(starlette_app, host=args.host, port=args.port)
+#     uvicorn.run(starlette_app, host=args.host, port=args.port)
