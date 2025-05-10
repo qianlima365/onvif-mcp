@@ -173,7 +173,8 @@ async def get_camera_list():
                 'port': 80,
                 'usr': 'admin',
                 'pwd': 'qwer1234',
-                "http_flv": "http://10.156.195.44:8080/live/test.live.flv",
+                'http_flv': "https://ai.isstech.com/agent/live/test.live.flv",
+                # "http_flv": "http://10.156.195.44:8080/live/test.live.flv",
                 # "http_hls": "http://10.156.195.44:8080/live/test/hls.m3u8"
                 },{
                     'name': '办公区摄像头',
@@ -181,7 +182,8 @@ async def get_camera_list():
                     'port': 80,
                     'usr': 'admin',
                     'pwd': 'qwer1234',
-                    "http_flv": "http://10.156.195.44:8080/live/test.live.flv",
+                    'http_flv': "https://ai.isstech.com/agent/live/test.live.flv",
+                    # "http_flv": "http://10.156.195.44:8080/live/test.live.flv",
                     # "http_hls": "http://10.156.195.44:8080/live/test/hls.m3u8"
                 },{
                     'name': '楼梯口摄像头',
@@ -189,7 +191,8 @@ async def get_camera_list():
                     'port': 80,
                     'usr': 'admin',
                     'pwd': 'qwer1234',
-                    "http_flv": "http://10.156.195.44:8080/live/test.live.flv",
+                    'http_flv': "https://ai.isstech.com/agent/live/test.live.flv",
+                    # "http_flv": "http://10.156.195.44:8080/live/test.live.flv",
                     # "http_hls": "http://10.156.195.44:8080/live/test/hls.m3u8"
                 }
         ]
@@ -212,7 +215,8 @@ async def get_camera_live(name: str):
                 'port': 80,
                 'usr': 'admin',
                 'pwd': 'qwer1234',
-                "http_flv": "http://10.156.195.44:8080/live/test.live.flv",
+                'http_flv': "https://ai.isstech.com/agent/live/test.live.flv",
+                # "http_flv": "http://10.156.195.44:8080/live/test.live.flv",
                 # "http_hls": "http://10.156.195.44:8080/live/test/hls.m3u8"
             }
 
@@ -240,20 +244,20 @@ def create_starlette_app(mcp_server: Server, *, debug: bool = False) -> Starlett
         ],
     )
 
-if __name__ == "__main__":
-    mcp.run(transport='stdio')
-
 # if __name__ == "__main__":
-#     mcp_server = mcp._mcp_server   
+#     mcp.run(transport='stdio')
 
-#     import argparse
+if __name__ == "__main__":
+    mcp_server = mcp._mcp_server   
+
+    import argparse
     
-#     parser = argparse.ArgumentParser(description='Run MCP SSE-based server')
-#     parser.add_argument('--host', default='0.0.0.0', help='Host to bind to')
-#     parser.add_argument('--port', type=int, default=8020, help='Port to listen on')
-#     args = parser.parse_args()
+    parser = argparse.ArgumentParser(description='Run MCP SSE-based server')
+    parser.add_argument('--host', default='0.0.0.0', help='Host to bind to')
+    parser.add_argument('--port', type=int, default=8020, help='Port to listen on')
+    args = parser.parse_args()
 
-#     # Bind SSE request handling to MCP server
-#     starlette_app = create_starlette_app(mcp_server, debug=True)
+    # Bind SSE request handling to MCP server
+    starlette_app = create_starlette_app(mcp_server, debug=True)
 
-#     uvicorn.run(starlette_app, host=args.host, port=args.port)
+    uvicorn.run(starlette_app, host=args.host, port=args.port)
