@@ -12,12 +12,13 @@ MINIO_ENDPOINT = getenv("MINIO_ENDPOINT")
 MINIO_ACCESS_KEY = getenv("MINIO_ACCESS_KEY")
 MINIO_SECRET_KEY = getenv("MINIO_SECRET_KEY")
 MINIO_BUCKET = getenv("MINIO_BUCKET")
+MINIO_PROXY_ENDPOINT = getenv("MINIO_PROXY_ENDPOINT")
 
 print("MINIO_ENDPOINT:", MINIO_ENDPOINT)
 print("MINIO_ACCESS_KEY:", MINIO_ACCESS_KEY)
 print("MINIO_SECRET_KEY:", MINIO_SECRET_KEY)
 print("MINIO_BUCKET:", MINIO_BUCKET)
-
+print("MINIO_PROXY_ENDPOINT:", MINIO_PROXY_ENDPOINT)
 
 def upload_to_minio(image_data: bytes) -> str:
     # Initialize client
@@ -45,4 +46,5 @@ def upload_to_minio(image_data: bytes) -> str:
     )
 
     
-    return f"http://{MINIO_ENDPOINT}/{MINIO_BUCKET}/{object_name}"
+    # return f"http://{MINIO_ENDPOINT}/{MINIO_BUCKET}/{object_name}"
+    return f"{MINIO_PROXY_ENDPOINT}/{MINIO_BUCKET}/{object_name}"
