@@ -176,6 +176,7 @@ async def get_camera_list():
                 'http_flv': "https://ai.isstech.com/agent/live/test.live.flv",
                 # "http_flv": "http://10.156.195.44:8080/live/test.live.flv",
                 # "http_hls": "http://10.156.195.44:8080/live/test/hls.m3u8"
+                "location": [116.281031, 40.049938]
                 },{
                     'name': '办公区摄像头',
                     'host': '10.17.20.110',
@@ -185,6 +186,7 @@ async def get_camera_list():
                     'http_flv': "https://ai.isstech.com/agent/live/test.live.flv",
                     # "http_flv": "http://10.156.195.44:8080/live/test.live.flv",
                     # "http_hls": "http://10.156.195.44:8080/live/test/hls.m3u8"
+                    "location": [116.285481, 40.044352]
                 },{
                     'name': '楼梯口摄像头',
                     'host': '10.17.20.110',
@@ -194,9 +196,9 @@ async def get_camera_list():
                     'http_flv': "https://ai.isstech.com/agent/live/test.live.flv",
                     # "http_flv": "http://10.156.195.44:8080/live/test.live.flv",
                     # "http_hls": "http://10.156.195.44:8080/live/test/hls.m3u8"
+                    "location": [116.464888, 39.946901]
                 }
         ]
-
 # 获取摄像头直播流播放地址
 @mcp.tool()
 async def get_camera_live(name: str):
